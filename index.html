@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO On-Page & Technical -->
+    <title>e-PATROLL - Program Patroli Elektronik Repositori</title>
+    <meta name="description" content="Cek status aktivasi akun GitHub Anda sesuai Peraturan Pemerintah Fiktif e-PATROLL. Hindari pembekuan akun dan penghapusan repositori terlantar. Program dari KOMINFO-GIT.">
+    <meta name="keywords" content="e-patroll, github, kominfo-git, razia commit, suaka kode, cek akun github, repo terlantar, produktivitas digital, developer indonesia, satire">
+    <meta name="author" content="KOMINFO-GIT (Tim Teknis e-PATROLL)">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://e-patroll.netlify.app/">
+    <meta property="og:title" content="e-PATROLL - Waspada Akun GitHub Anda Dibekukan!">
+    <meta property="og:description" content="Program Penertiban Aset Digital. Cek apakah akun GitHub Anda terancam dihapus karena tidak aktif.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Lambang_Garuda_Pancasila.svg/1200px-Lambang_Garuda_Pancasila.svg.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://e-patroll.netlify.app/">
+    <meta property="twitter:title" content="e-PATROLL - Waspada Akun GitHub Anda Dibekukan!">
+    <meta property="twitter:description" content="Program Penertiban Aset Digital. Cek apakah akun GitHub Anda terancam dihapus karena tidak aktif.">
+    <meta property="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Lambang_Garuda_Pancasila.svg/1200px-Lambang_Garuda_Pancasila.svg.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Fira+Mono:wght@400&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .font-mono, code, input, textarea {
+            font-family: 'Fira Mono', monospace;
+        }
+        /* Khusus untuk tombol, kita kembalikan ke font heading agar lebih tegas */
+        button {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+        }
+        /* Animasi untuk hasil */
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.5s;
+        }
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        
+        <header class="text-center mb-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Lambang_Garuda_Pancasila.svg/1200px-Lambang_Garuda_Pancasila.svg.png" alt="Logo Garuda Pancasila" class="w-16 h-16 mx-auto mb-4">
+            <h1 class="text-2xl md:text-4xl font-bold text-gray-900">PENGUMUMAN RESMI</h1>
+            <p class="text-lg md:text-xl text-gray-600">NOMOR: 01/KOMINFO-GIT/VII/2025</p>
+            <p class="font-bold text-red-600 mt-2">PROGRAM PATROLI ELEKTRONIK REPOSITORI (e-PATROLL)</p>
+        </header>
+
+        <main class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-center">TENTANG PENERTIBAN ASET DIGITAL DAN OPTIMALISASI REPOSITORI KODE TERLANTAR</h2>
+            
+            <section aria-labelledby="dasar-hukum" class="mb-6 text-sm text-justify space-y-2">
+                <h3 id="dasar-hukum" class="sr-only">Dasar Hukum</h3>
+                <p><span class="font-bold">Menimbang:</span> bahwa dalam rangka menjaga kedaulatan digital bangsa dan meningkatkan produktivitas kode nasional, perlu dilakukan penertiban terhadap aset digital berupa repositori kode yang tidak aktif dan ditelantarkan oleh pemiliknya.</p>
+                <p><span class="font-bold">Mengingat:</span> bahwa repositori yang tidak terurus berpotensi disalahgunakan untuk tindak pidana per-script-kiddie-an, menjadi celah keamanan siber, dan menurunkan citra ekosistem open-source Indonesia di mata dunia.</p>
+                <p><span class="font-bold">Memutuskan:</span></p>
+            </section>
+
+            <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded-md mb-8" role="alert">
+                <p class="font-bold">Akun GitHub yang terdeteksi tidak memiliki aktivitas <code class="font-mono bg-red-100 px-1 rounded">commit</code> selama 90 (sembilan puluh) hari kalender berturut-turut akan DIBEKUKAN SEMENTARA dan seluruh repositorinya akan DIHAPUS PERMANEN jika tidak ada aktivasi ulang dalam 30 hari berikutnya.</p>
+            </div>
+
+            <div x-data="checkerApp()" class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                <h3 class="text-lg font-bold mb-4 text-center">Cek Status Aktivasi Akun GitHub Anda</h3>
+                <div class="flex flex-col gap-2">
+                    <textarea x-model="usernames" placeholder="Masukkan satu atau lebih username GitHub, pisahkan dengan koma..." class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" rows="3"></textarea>
+                    <button @click="checkAccounts" 
+                            class="bg-blue-600 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center w-full sm:w-auto"
+                            :disabled="loading">
+                        <span x-show="!loading">Periksa Sekarang</span>
+                        <div x-show="loading" class="animate-spin h-5 w-5 text-white" role="status" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+                
+                <div x-show="error" x-transition class="mt-4 p-4 rounded-md bg-red-100 border-l-4 border-red-500 text-red-800">
+                    <p><span class="font-bold">KESALAHAN: </span><span x-text="error"></span></p>
+                </div>
+
+                <div id="results-container" class="mt-4 space-y-3">
+                    <template x-for="result in results" :key="result.username">
+                        <div x-show="results.length > 0" x-transition:enter="fade-enter-active" x-transition:leave="fade-leave-active" class="p-4 rounded-md border-l-4" :class="{
+                            'bg-green-100 border-green-500 text-green-800': result.color === 'green',
+                            'bg-yellow-100 border-yellow-500 text-yellow-800': result.color === 'orange',
+                            'bg-red-100 border-red-500 text-red-800': result.color === 'red',
+                            'bg-gray-100 border-gray-500 text-gray-800': result.color === 'gray'
+                        }">
+                            <p><code class="font-mono font-bold" x-text="result.username"></code> - <span class="font-bold" x-text="result.status + ': '"></span><span x-text="result.message"></span></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="text-center mt-8 text-sm text-gray-500">
+            <p>&copy; 2025 - Tim Teknis e-PATROLL</p>
+            <p>Kementerian Komunikasi dan Informatika Bidang Git (KOMINFO-GIT)</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function checkerApp() {
+            return {
+                usernames: '',
+                loading: false,
+                results: [],
+                error: null,
+                
+                async checkAccounts() {
+                    this.loading = true;
+                    this.results = [];
+                    this.error = null;
+
+                    if (!this.usernames.trim()) {
+                        this.error = 'Kolom isian tidak boleh kosong. Harap masukkan minimal satu username GitHub.';
+                        this.loading = false;
+                        return;
+                    }
+
+                    const usernameArray = this.usernames.split(',').map(u => u.trim()).filter(u => u);
+
+                    for (const username of usernameArray) {
+                        try {
+                            const response = await fetch(`https://api.github.com/users/${username}/events/public`);
+                            if (!response.ok) {
+                                if (response.status === 404) {
+                                    throw new Error('User tidak ditemukan.');
+                                }
+                                throw new Error(`API Error: ${response.statusText}`);
+                            }
+                            
+                            const events = await response.json();
+                            if (events.length === 0) {
+                                this.results.push({
+                                    username: username,
+                                    status: 'TIDAK AKTIF',
+                                    message: 'Akun tidak memiliki aktivitas publik sama sekali. Sangat berisiko untuk dihapus permanen.',
+                                    color: 'red'
+                                });
+                                continue;
+                            }
+
+                            const lastEventDate = new Date(events[0].created_at);
+                            const now = new Date();
+                            const diffDays = Math.floor((now - lastEventDate) / (1000 * 60 * 60 * 24));
+
+                            if (diffDays >= 90) {
+                                this.results.push({
+                                    username: username,
+                                    status: 'BAHAYA',
+                                    message: `Aktivitas publik terakhir ${diffDays} hari yang lalu. Akun masuk dalam daftar pengawasan tinggi!`,
+                                    color: 'red'
+                                });
+                            } else if (diffDays >= 30) {
+                                this.results.push({
+                                    username: username,
+                                    status: 'PERINGATAN',
+                                    message: `Aktivitas publik terakhir ${diffDays} hari yang lalu. Segera lakukan commit untuk menghindari pembekuan.`,
+                                    color: 'orange'
+                                });
+                            } else {
+                                this.results.push({
+                                    username: username,
+                                    status: 'AMAN',
+                                    message: `Aktivitas publik terakhir ${diffDays} hari yang lalu. Terima kasih telah menjadi developer produktif.`,
+                                    color: 'green'
+                                });
+                            }
+
+                        } catch (e) {
+                            this.results.push({
+                                username: username,
+                                status: 'TIDAK DITEMUKAN / ERROR',
+                                message: `Gagal memeriksa. Pastikan username benar dan memiliki akses publik. (${e.message})`,
+                                color: 'gray'
+                            });
+                        }
+                    }
+                    
+                    this.loading = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
