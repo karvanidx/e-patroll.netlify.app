@@ -116,6 +116,14 @@
                                     </template>
                                 </ul>
                             </div>
+                            <div class="mt-3 text-right">
+                                <a :href="'surat.html?user=' + result.username + '&status=' + result.status + '&timeAgo=' + result.timeAgo"
+                                   target="_blank"
+                                   x-show="result.color === 'orange' || result.color === 'red'"
+                                   class="text-xs bg-gray-600 text-white py-1 px-3 rounded-md hover:bg-gray-700 transition-colors">
+                                    Cetak Surat Peringatan
+                                </a>
+                            </div>
                         </div>
                     </template>
                 </div>
@@ -237,7 +245,8 @@
                                     status: 'PERHATIAN',
                                     message: 'Akun ini tidak menunjukkan tanda-tanda kehidupan digital dan dengan ini ditetapkan sebagai Aset Digital Tak Bertuan (ADTB). Aset akan segera dilikuidasi sesuai peraturan yang berlaku.',
                                     color: 'red',
-                                    activities: []
+                                    activities: [],
+                                    timeAgo: 'N/A'
                                 });
                                 continue;
                             }
@@ -254,7 +263,8 @@
                                     status: 'BAHAYA',
                                     message: `Aktif ${timeAgo}. Akun masuk dalam daftar pengawasan tinggi!`,
                                     color: 'red',
-                                    activities: recentActivities
+                                    activities: recentActivities,
+                                    timeAgo: timeAgo
                                 });
                             } else if (diffDays >= 30) {
                                 this.results.push({
@@ -262,7 +272,8 @@
                                     status: 'PERINGATAN',
                                     message: `Aktif ${timeAgo}. Segera lakukan commit untuk menghindari pembekuan.`,
                                     color: 'orange',
-                                    activities: recentActivities
+                                    activities: recentActivities,
+                                    timeAgo: timeAgo
                                 });
                             } else {
                                 this.results.push({
@@ -270,7 +281,8 @@
                                     status: 'AMAN',
                                     message: `Aktif ${timeAgo}.`,
                                     color: 'green',
-                                    activities: recentActivities
+                                    activities: recentActivities,
+                                    timeAgo: timeAgo
                                 });
                             }
 
@@ -280,7 +292,8 @@
                                 status: 'TIDAK DITEMUKAN / ERROR',
                                 message: `Gagal memeriksa. Pastikan username benar. (${e.message})`,
                                 color: 'gray',
-                                activities: []
+                                activities: [],
+                                timeAgo: 'N/A'
                             });
                         }
                     }

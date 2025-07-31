@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Peringatan Resmi - e-PATROLL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap');
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #E5E7EB; /* bg-gray-200 */
+        }
+        .paper {
+            background-color: white;
+            max-width: 816px; /* US Legal paper width in pixels at 96 DPI */
+            min-height: 1344px; /* US Legal paper height in pixels at 96 DPI */
+            margin: 2rem auto;
+            padding: 4rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .kop-surat {
+            border-bottom: 4px double black;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .kop-surat img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+        .materai {
+            width: 120px;
+            height: 80px;
+            border: 2px dashed #9CA3AF; /* border-gray-400 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF; /* text-gray-400 */
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-image: url('https://i.ibb.co/S6A0dG3/materai-10000.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .paper {
+                margin: 0;
+                box-shadow: none;
+                max-width: 100%;
+                min-height: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper">
+        <div class="kop-surat">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/National_emblem_of_Indonesia_Garuda_Pancasila.svg/1024px-National_emblem_of_Indonesia_Garuda_Pancasila.svg.png" alt="Logo Garuda Pancasila">
+            <h1 class="font-bold text-xl mt-2">PEMERINTAH REPUBLIK INDONESIA</h1>
+            <h2 class="font-bold text-2xl">KEMENTERIAN KOMUNIKASI DAN INFORMATIKA BIDANG GIT</h2>
+            <p class="text-sm">DIREKTORAT JENDERAL REPOSITORI NASIONAL (DITJEN REPNAS)</p>
+            <p class="text-xs mt-1">Jalan Medan Merdeka Barat No. 9, Jakarta Pusat 10110 | Telp: (021) 384-5544 | Laman: e-patroll.netlify.app</p>
+        </div>
+
+        <div class="grid grid-cols-3 mb-4">
+            <div>
+                <p>Nomor</p>
+                <p>Lampiran</p>
+                <p>Perihal</p>
+            </div>
+            <div class="col-span-2">
+                <p>: <span id="nomor-surat">1337/KOMINFO-GIT/SP1/VII/2025</span></p>
+                <p>: -</p>
+                <p class="font-bold">: <span id="perihal">Peringatan Pertama (SP-1)</span></p>
+            </div>
+        </div>
+
+        <div>
+            <p>Yth. Sdr/i. <span id="username" class="font-bold"></span></p>
+            <p>Pemilik Akun GitHub</p>
+            <p>di Tempat</p>
+        </div>
+
+        <div class="mt-8 text-justify leading-relaxed">
+            <p class="indent-8">Dengan hormat,</p>
+            <p class="indent-8 mt-4">Merujuk pada Peraturan Pemerintah Fiktif (PPF) No. 42 Tahun 2025 tentang Penertiban Aset Digital, hasil patroli rutin Tim Teknis e-PATROLL mengidentifikasi adanya indikasi pelanggaran pada akun GitHub atas nama Saudara/i.</p>
+            <p class="indent-8 mt-4">Pelanggaran yang dimaksud adalah <strong id="status-pelanggaran"></strong>, karena aktivitas publik terakhir tercatat pada <strong id="waktu-pelanggaran"></strong>. Hal ini tidak sesuai dengan Pasal 1 ayat (2) PPF No. 42 Tahun 2025 mengenai kewajiban menjaga keaktifan aset digital.</p>
+            <p class="indent-8 mt-4">Sehubungan dengan hal tersebut, kami memberikan **Peringatan Pertama (SP-1)** dan meminta Saudara/i untuk segera meningkatkan kembali produktivitas dan aktivitas pada akun tersebut selambat-lambatnya 30 (tiga puluh) hari sejak surat ini diterbitkan. Apabila peringatan ini diabaikan, maka akan diberlakukan sanksi administratif yang lebih berat sesuai dengan peraturan yang berlaku.</p>
+            <p class="indent-8 mt-4">Demikian surat peringatan ini kami sampaikan. Atas perhatian dan kerja sama Saudara/i, kami ucapkan terima kasih.</p>
+        </div>
+
+        <div class="float-right text-center mt-10">
+            <p>Jakarta, <span id="tanggal-surat"></span></p>
+            <p>Hormat kami,</p>
+            <p class="font-bold">Direktur Jenderal Repositori Nasional</p>
+            <div class="materai"></div>
+            <p class="font-bold underline">Dr. Ir. Gemini CLI, M.Sc.</p>
+            <p>NIP. 199104012025071001</p>
+        </div>
+    </div>
+    
+    <div class="text-center my-4 no-print">
+        <button onclick="window.print()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-md hover:bg-blue-700 transition-colors">Cetak Halaman Ini</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const user = params.get('user') || 'Tanpa Nama';
+            const status = params.get('status') || 'Pelanggaran';
+            const timeAgo = params.get('timeAgo') || 'waktu yang tidak tercatat';
+
+            document.getElementById('username').textContent = user;
+            document.getElementById('status-pelanggaran').textContent = `status "${status}"`;
+            document.getElementById('waktu-pelanggaran').textContent = timeAgo;
+
+            if (status.toUpperCase() === 'BAHAYA') {
+                document.getElementById('perihal').textContent = 'Peringatan Terakhir (SP-3)';
+            }
+
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('tanggal-surat').textContent = today.toLocaleDateString('id-ID', options);
+        });
+    </script>
+
+</body>
+</html>
