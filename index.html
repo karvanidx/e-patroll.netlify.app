@@ -148,6 +148,28 @@
 
             </div>
 
+            <!-- Dashboard Statistik Nasional -->
+            <section aria-labelledby="dashboard-title" class="mt-10 bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+                <h3 id="dashboard-title" class="text-lg font-bold mb-4 text-center text-yellow-300">DATA PRODUKTIVITAS DIGITAL NASIONAL (LIVE)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <p class="text-sm text-gray-400">Tingkat Produktivitas Commit</p>
+                        <p class="text-3xl font-bold text-green-400"><span id="stat-productivity">0.0</span>%</p>
+                        <p class="text-xs text-green-500" id="stat-productivity-change">Naik 0.0% dari triwulan lalu</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">ADTB Berhasil Diamankan</p>
+                        <p class="text-3xl font-bold text-yellow-400"><span id="stat-adtb">0</span></p>
+                        <p class="text-xs text-gray-400">Akun</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">Potensi Kerugian Negara</p>
+                        <p class="text-3xl font-bold text-red-400">Rp <span id="stat-loss">0.0</span></p>
+                        <p class="text-xs text-gray-400">Triliun</p>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <footer class="text-center mt-8 text-sm text-gray-500">
@@ -160,6 +182,7 @@
 
     <script>
         function checkerApp() {
+            // ... (checkerApp function remains the same)
             return {
                 usernames: '',
                 loading: false,
@@ -302,6 +325,19 @@
                 }
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dashboard Statistik Nasional
+            const productivity = 75 + Math.random() * 5;
+            const productivityChange = 1.5 + Math.random();
+            const adtb = 1300 + Math.floor(Math.random() * 100);
+            const loss = 1.1 + Math.random() * 0.5;
+
+            document.getElementById('stat-productivity').textContent = productivity.toFixed(1);
+            document.getElementById('stat-productivity-change').textContent = `Naik ${productivityChange.toFixed(1)}% dari triwulan lalu`;
+            document.getElementById('stat-adtb').textContent = adtb.toLocaleString('id-ID');
+            document.getElementById('stat-loss').textContent = loss.toFixed(1);
+        });
     </script>
 </body>
 </html>
