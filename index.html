@@ -74,22 +74,27 @@
                 <p class="font-bold">Akun GitHub yang terdeteksi tidak memiliki aktivitas <code class="font-mono bg-red-100 px-1 rounded">commit</code> selama 90 (sembilan puluh) hari kalender berturut-turut akan DIBEKUKAN SEMENTARA dan seluruh repositorinya akan DIHAPUS PERMANEN jika tidak ada aktivasi ulang dalam 30 hari berikutnya.</p>
             </div>
 
-            <div x-data="checkerApp()" class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                <h3 class="text-lg font-bold mb-4 text-center">Formulir Pengecekan Status Keaktifan Warga Digital</h3>
-                <div class="flex flex-col gap-2">
-                    <textarea x-model="usernames" placeholder="Masukkan satu atau lebih username GitHub, pisahkan dengan koma..." class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" rows="3"></textarea>
-                    <button @click="checkAccounts" 
-                            class="bg-blue-600 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center w-full sm:w-auto"
-                            :disabled="loading">
-                        <span x-show="!loading">Laksanakan Pengecekan</span>
-                        <div x-show="loading" class="animate-spin h-5 w-5 text-white" role="status" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
+            <div x-data="checkerApp()">
+                <fieldset class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                    <legend class="text-lg font-bold mb-4 text-center px-4">Formulir Pengecekan Status Keaktifan Warga Digital</legend>
+                    <div class="flex flex-col gap-2">
+                        <textarea x-model="usernames" placeholder="Masukkan satu atau lebih username GitHub, pisahkan dengan koma..." class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" rows="3" :disabled="loading"></textarea>
+                        <button @click="checkAccounts" 
+                                class="bg-blue-600 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center w-full sm:w-auto disabled:bg-gray-400"
+                                :disabled="loading">
+                            <span x-show="!loading">Laksanakan Pengecekan</span>
+                            <div x-show="loading" class="flex items-center">
+                                <div class="animate-spin h-5 w-5 mr-3 text-white" role="status" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </div>
+                                <span>Memproses data...</span>
+                            </div>
+                        </button>
+                    </div>
+                </fieldset>
                 
                 <div x-show="error" x-transition class="mt-4 p-4 rounded-md bg-red-100 border-l-4 border-red-500 text-red-800">
                     <p><span class="font-bold">KESALAHAN: </span><span x-text="error"></span></p>
@@ -172,19 +177,21 @@
 
             <!-- Lapor Warga Digital Section -->
             <section aria-labelledby="lapor-title" class="mt-10">
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 md:p-8 rounded-lg shadow-lg">
-                    <h3 id="lapor-title" class="text-xl md:text-2xl font-bold mb-4 text-center text-yellow-800">Partisipasi Publik: Lapor Warga Digital</h3>
-                    <p class="text-sm text-yellow-900 text-center mb-4">Bantu kami menjaga kedaulatan digital dengan melaporkan akun yang terindikasi tidak produktif. Setiap laporan akan ditindaklanjuti sesuai prosedur yang berlaku.</p>
-                    <div x-data="{ laporUsername: '', laporMessage: '', laporSubmitted: false }" class="flex flex-col gap-3">
-                        <input type="text" x-model="laporUsername" placeholder="Username GitHub yang dilaporkan..." class="w-full p-3 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 font-mono">
-                        <textarea x-model="laporMessage" placeholder="Tuliskan alasan pelaporan Anda (opsional)..." class="w-full p-3 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 font-mono" rows="3"></textarea>
-                        <button @click="laporSubmitted = true" class="bg-yellow-600 text-white font-bold py-3 px-6 rounded-md hover:bg-yellow-700 transition-colors">
-                            Kirim Laporan Secara Anonim
-                        </button>
-                        <div x-show="laporSubmitted" x-transition class="mt-2 p-3 rounded-md bg-green-100 text-green-800 text-center">
-                            <p>Laporan telah diterima dan akan segera diproses oleh Tim Teknis. Terima kasih atas partisipasi Anda.</p>
+                <div x-data="{ laporUsername: '', laporMessage: '', laporSubmitted: false, submitLaporan() { this.laporSubmitted = true; setTimeout(() => { this.laporSubmitted = false; this.laporUsername = ''; this.laporMessage = ''; }, 5000); } }">
+                    <fieldset class="bg-yellow-50 border border-yellow-200 p-6 md:p-8 rounded-lg shadow-lg">
+                        <legend id="lapor-title" class="text-xl md:text-2xl font-bold mb-4 text-center text-yellow-800 px-4">Partisipasi Publik: Lapor Warga Digital</legend>
+                        <p class="text-sm text-yellow-900 text-center mb-4">Bantu kami menjaga kedaulatan digital dengan melaporkan akun yang terindikasi tidak produktif. Setiap laporan akan ditindaklanjuti sesuai prosedur yang berlaku.</p>
+                        <div class="flex flex-col gap-3">
+                            <input type="text" x-model="laporUsername" placeholder="Username GitHub yang dilaporkan..." class="w-full p-3 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 font-mono">
+                            <textarea x-model="laporMessage" placeholder="Tuliskan alasan pelaporan Anda (opsional)..." class="w-full p-3 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 font-mono" rows="3"></textarea>
+                            <button @click="submitLaporan" class="bg-yellow-600 text-white font-bold py-3 px-6 rounded-md hover:bg-yellow-700 transition-colors">
+                                Kirim Laporan Secara Anonim
+                            </button>
+                            <div x-show="laporSubmitted" x-transition class="mt-2 p-3 rounded-md bg-green-100 text-green-800 text-center border border-green-200">
+                                <p><span class="font-bold">Laporan Diterima.</span> Nomor referensi Anda: LP/001/DIG/X/2024. Terima kasih atas partisipasi Anda.</p>
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
             </section>
 
